@@ -11,11 +11,29 @@
     <label for="spacing">Spacing:</label>
     <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
 
+    <label for="sepia">Sepia:</label>
+    <input id="sepia" type="range" name="sepia" min="0" max="100" value="0" data-sizing="%">
+
+    <label for="grayscale">Grayscale:</label>
+    <input id="grayscale" type="range" name="grayscale" min="0" max="1" step="0.01" value="0" data-sizing="">
+
+    <label for="saturation">Saturation:</label>
+    <input id="saturation" type="range" name="saturation" min="0" max="100" value="100" data-sizing="%">
+
+    <label for="brightness">Brightness:</label>
+    <input id="brightness" type="range" name="brightness" min="0" max="200" value="100" data-sizing="%">
+
+    <label for="contrast">Contrast:</label>
+    <input id="contrast" type="range" name="contrast" min="0" max="200" value="100" data-sizing="%">
+
     <label for="blur">Blur:</label>
-    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+    <input id="blur" type="range" name="blur" min="0" max="25" value="0" data-sizing="px">
 
     <label for="base">Base Color</label>
     <input id="base" type="color" name="base" value="#ffc600">
+
+    <label for="invert">Hue invert:</label>
+    <input id="invert" type="range" name="invert" min="0" max="100" value="0" data-sizing="%">
   </div>
 
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
@@ -24,13 +42,19 @@
     :root {
       --base: yellow;
       --spacing: 10px;
-      --blur: 10px;
+      --blur: 0px;
+      --sepia: 0%;
+      --grayscale: 0;
+      --saturation: 100%;
+      --brightness: 100%;
+      --contrast: 100%;
+      --invert: 0%;
     }
 
     img {
       padding: var(--spacing);
       background: var(--base);
-      filter: blur(var(--blur));
+      filter: blur(var(--blur)) sepia(var(--sepia)) grayscale(var(--grayscale)) invert(var(--invert)) saturate(var(--saturation)) brightness(var(--brightness)) contrast(var(--contrast));
     }
 
     .hl {
