@@ -27,12 +27,12 @@
   let lastY = 0;
   let hue = 0;
   let direction = true;
+  let savedLineWidth;
 
   function draw(e) {
-    if (!isDrawing) return;
-    
-    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+    if (!isDrawing || e.buttons === 2) return;
 
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(e.offsetX, e.offsetY);
@@ -50,12 +50,17 @@
   canvas.addEventListener('mousemove', draw);
   canvas.addEventListener('mousedown', e => {
     isDrawing = true;
-
     [lastX, lastY] = [e.offsetX, e.offsetY];
-  });
 
+    if (e.buttons === 2) {  // toggle between drawing and erasing with right-click
+      ctx.globalCompositeOperation = ctx.globalCompositeOperation === 'destination-out' ? 'source-over' : 'destination-out';
+      e.preventDefault();
+    }
+  });
   canvas.addEventListener('mouseup', () => isDrawing = false);
   canvas.addEventListener('mouseout', () => isDrawing = false);
+
+  canvas.addEventListener('contextmenu', e => e.preventDefault());
 </script>
 
 <style>
