@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+
+  <script src="lodash.js"></script>
+  <script>
+    // start with strings, numbers and booleans
+    let age = 100;
+    let age2 = age;
+    console.assert(age === age2, 'age value is equal to age2 value!');
+    age = 200;
+    console.assert(age !== age2, 'now age value is NOT equal to age2 value!');
+
+    let name = 'nico';
+    let name2 = name;
+    console.assert(name === name2, 'name value is equal to name2 value!');
+    name = 'marco';
+    console.assert(name !== name2, 'now name value is NOT equal to name2 value!');
+
+    // Let's say we have an array    
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    // and we want to make a "copy" of it.
+    
+    // You might think we can just do something like this:
+    const players2 = players;
+    
+    // however what happens when we update that array?
+    // players2[3] = 'Lux';
+    
+    // console.assert(players[3] !== 'Poppy', 'the last entry in players is not "Poppy" anymore!');
+    // console.assert(players[3] === 'Lux', 'the last entry in players equals "Lux"!');
+
+    // now here is the problem!
+
+    // oh no - we have edited the original array too!
+
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+
+    // So, how do we fix this? We take a copy instead!
+
+    // one way
+    const playersCopy = players.slice();
+    
+    // or create a new array and concat the old one in
+    const playersCopy2 = [].concat(players);
+
+    // or use the new ES6 Spread
+    const playersCopy3 = [...players];
+
+    // or Array.from()
+    const playersCopy4 = Array.from(players);
+
+    // now when we update it, the original one isn't changed
+
+    // The same thing goes for objects, let's say we have a person object
+
+    // with Objects
+    const person = {
+      name: 'Wes Bos',
+      age: 80
+    };
+
+    // and think we make a copy:
+    // const person2 = person;
+
+    // person2.number = 99;
+
+    // console.assert(person.number === 99, 'now person also has a number property!');
+
+    // how do we take a copy instead?
+    const person2 = Object.assign({}, person, { number: 99 });
+
+    console.assert(person.number === undefined, 'person doesn\'t have a number attribute!');
+
+    // also with ...spread
+    const person3 = { ...person, number: 99 };
+
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+    const wes = {
+      name: 'Wes',
+      age: 100,
+      social: {
+        twitter: '@wesbos',
+        facebook: 'wesbos.developer'
+      }
+    };
+
+    const wes2 = {...wes};
+    // this copies the reference to the inner object
+    // wes2.social.facebook = null;
+    // console.assert(wes.social.facebook === null, 'wes was also modified!');
+    // this also modifies wes object
+
+    // same goes for Object.assign()
+    // const wes3 = Object.assign({}, wes);
+    // wes3.social.facebook = null;
+    // console.assert(wes.social.facebook !== null, 'wes was also modified!');
+
+    // deep copy using lodash's cloneDeep
+    const wes4 = _.cloneDeep(wes);
+    wes4.social.facebook = null;
+    console.assert(wes.social.facebook !== null, 'wes remains untouched!');
+
+    // or manually through serialization (the poor's man deep clone)
+    const wes5 = JSON.parse(JSON.stringify(wes));
+    wes5.social.facebook = null;
+    console.assert(wes.social.facebook !== null, 'wes remains untouched!');
+
+  </script>
+
+</body>
+</html>
