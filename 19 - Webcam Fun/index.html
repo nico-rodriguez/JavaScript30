@@ -10,7 +10,7 @@
   <div class="photobooth">
     <div class="controls">
       <button onClick="takePhoto()">Take Photo</button>
-<!--       <div class="rgb">
+      <div class="rgb">
         <label for="rmin">Red Min:</label>
         <input type="range" min=0 max=255 name="rmin">
         <label for="rmax">Red Max:</label>
@@ -29,8 +29,16 @@
         <input type="range" min=0 max=255 name="bmin">
         <label for="bmax">Blue Max:</label>
         <input type="range" min=0 max=255 name="bmax">
-      </div> -->
+      </div>
     </div>
+    <label for="red-effect">Apply red effect:</label>
+    <input type="checkbox" name="red-effect" id="red-effect">
+    <label for="rgb-split">Apply RGB split:</label>
+    <input type="checkbox" name="rgb-split" id="rgb-split">
+    <label for="green-screen">Apply green screen effect:</label>
+    <input type="checkbox" name="green-screen" id="green-screen">
+    <label for="ghost">Apply matrix effect:</label>
+    <input type="checkbox" name="ghost" id="ghost">
 
     <canvas class="photo"></canvas>
     <video class="player"></video>
