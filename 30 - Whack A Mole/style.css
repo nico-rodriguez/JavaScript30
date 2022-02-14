@@ -67,3 +67,24 @@ h1 {
 .hole.up .mole {
   top: 0;
 }
+
+.leader-board {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-size: 5rem;
+}
+
+.leader-board ol {
+  margin: 0;
+  padding: 0;
+}
+
+#scores {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
